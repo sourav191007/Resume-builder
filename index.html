@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumeCraft - Free Offline Resume Builder</title>
+
+    <link rel="shortcut icon" href="assets/images/ResumeCraft.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="header-content">
+            <h1 class="site-logo">ResumeCraft</h1>
+            <p class="site-tagline">
+                Build, analyze, and generate your resume and portfolio instantly.
+            </p>
+        </div>
+    </header>
+
+    <hr>
+    <br><br>
+    <main>
+
+        <section id="builder-section">
+            <h2>Resume Details</h2>
+
+            <form id="resume-form">
+
+                <fieldset>
+                    <legend>
+                        <h3>Personal Details</h3>
+                    </legend>
+                    <label for="fullName">Full Name:</label> <!--Name   -->
+                    <input type="text" id="fullName" name="fullName" placeholder="John Doe" required>
+                    <br>
+
+                    <label for="email">Email:</label><!--Email   -->
+                    <input type="email" id="email" name="email" placeholder="john.doe@example.com" required>
+                    <br>
+
+                    <label for="phone">Phone Number:</label><!--Phone   -->
+                    <input type="tel" id="phone" name="phone" placeholder="(123) 456-7890">
+                    <br>
+
+                    <label for="linkedin">LinkedIn Profile:</label><!--LinkedIn   -->
+                    <input type="url" id="linkedin" name="linkedin"
+                        placeholder="https://www.linkedin.com/in/yourprofile">
+                    <br>
+
+                    <label for="address">Current City:</label><!--Address   -->
+                    <input type="text" id="address" name="address" placeholder="Mumbai, IN">
+                    <br>
+
+                    <label for="summary">Professional Summary:</label><!--Summary   -->
+                    <textarea id="summary" name="summary" rows="4" cols="50"></textarea>
+
+                    <label for="profilePic">Profile Photo:</label>
+                    <input type="file" id="profilePic" accept="image/*">
+                </fieldset>
+                <fieldset>
+                    <legend>
+                        <h3>Professional Details</h3>
+                    </legend>
+                    <fieldset>
+                        <legend>Education</legend>
+                        <label for="degree">Degree/Major:</label>
+                        <input type="text" id="degree" name="degree" placeholder="B.Tech in Computer Science">
+                        <br><br>
+
+                        <label for="university">University/College:</label>
+                        <input type="text" id="university" name="university" placeholder="XYZ University">
+                        <br><br>
+
+                        <label for="gradYear">Graduation Year:</label>
+                        <input type="number" id="gradYear" name="gradYear" placeholder="2029">
+                    </fieldset>
+                    <br>
+                    <fieldset class="form-card">
+                        <legend class="form-card-title">Work Experience</legend>
+
+                        <div class="form-group">
+                            <label class="form-label" for="jobTitle">Job Title</label>
+                            <input class="form-input" type="text" id="jobTitle" name="jobTitle"
+                                placeholder="Frontend Developer Intern">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="company">Company</label>
+                            <input class="form-input" type="text" id="company" name="company"
+                                placeholder="ABC Technologies">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="jobDesc">Job Description</label>
+                            <textarea class="form-textarea" id="jobDesc" name="jobDesc" rows="4"
+                                placeholder="Describe your responsibilities..."></textarea>
+                        </div>
+
+                    </fieldset>
+
+                    <div class="form-group mt-2" id="we">
+                        <fieldset class="form-card">
+                            <legend class="form-card-title">Skills</legend>
+                            <label for="skills">List your skills:</label><br>
+                            <textarea id="skills" class="form-control weField" name="skills" rows="2" cols="50"
+                                placeholder="Add skill"></textarea>
+                            <div class="container text-center mt-2" id="weAddButton">
+                                <button onclick="addField()" type="button" id="btn-addskills">Add Skills</button>
+                            </div>
+                        </fieldset>
+                    </div>
+
+                    <div class="form-group mt-2" id="weProject">
+                        <fieldset class="form-card">
+                            <legend class="form-card-title">Project</legend>
+                            <label for="project">Add Project</label><br>
+                            <textarea id="project" class="form-control weProject" name="project" rows="2" cols="50"
+                                placeholder="Add Project"></textarea>
+                            <div class="container text-center mt-2" id="weAddButtonProject">
+                                <button onclick="addFieldProject()" type="button" id="btn-addProject">Add
+                                    Project</button>
+                            </div>
+                        </fieldset>
+                    </div>
+                </fieldset>
+            </form>
+
+            <div class="button-group" id="controls">
+
+                <button onclick="generateResume()" class="primary-button" type="button" id="btn-portfolio">
+                    Generate Resume
+                </button>
+                <!-- <button onclick="printCV()" class="primary-button" type="button" id="printBtn">
+        Print Resume
+    </button> -->
+            </div>
+
+        </section>
+
+        <aside class="resume-preview-container" id="preview-section">
+
+            <h2 class="section-title">Resume Template</h2>
+
+            <div class="analysis-box" id="analysis-feedback"></div>
+
+            <div class="resume-paper" id="resume-preview">
+                <div class="resume-header">
+
+                    <div class="resume-header-left">
+                        <h3 class="resume-name" id="preview-name">John Doe</h3>
+
+                        <p class="resume-contact">
+                            <span>📍 <span id="preview-city">Mumbai, India</span></span>
+                            |
+                            <span>✉ <span id="preview-email">john@example.com</span></span>
+                            |
+                            <span>📱 <span id="preview-phone">(123) 456-7890</span></span>
+                            |
+                            <br>
+                            <span>LinkedIn: <a id="preview-linkedin" href="https://linkedin.com/in/yourprofile" target="_blank">linkedin.com/in/yourprofile</a></span>
+                        </p>
+                    </div>
+
+                    <div class="resume-header-right">
+                        <img src="assets/images/profile-img.jpeg" alt="Profile Photo" class="profile-image"
+                            id="preview-image">
+                    </div>
+
+                </div>
+
+                <h4 class="resume-section-title">Professional Summary</h4>
+
+                <p class="resume-content" id="preview-summary">
+                    Passionate Computer Science student with strong problem-solving skills and
+                    experience in web development using HTML, CSS, and JavaScript. Interested
+                    in creating responsive and user-friendly web applications.
+                </p>
+
+                <h4 class="resume-section-title">Education</h4>
+
+                <p class="resume-content" id="preview-education">
+                    <strong>B.Tech in Computer Science Engineering</strong><br>
+                    XYZ University<br>
+                    Graduation Year: 2029
+                </p>
+
+                <h4 class="resume-section-title">Work Experience</h4>
+
+                <p class="resume-content" id="preview-experience">
+                    <strong>Frontend Developer Intern</strong><br>
+                    ABC Technologies<br>
+                    Assisted in developing responsive web pages, fixed UI bugs, and collaborated
+                    with the development team on client projects.
+                </p>
+                <h4 class="resume-section-title">Skills</h4>
+                <div class="resume-content" id="preview-skills">
+                    <ul>
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>JavaScript</li>
+                        <li>Git</li>
+                        <li>GitHub</li>
+                        <li>C Programming</li>
+                    </ul>
+                </div>
+                <h4 class="resume-section-title">Projects</h4>
+
+                <p class="resume-content" id="preview-projects">
+                    <strong>ResumeCraft</strong><br>
+                    Designed and developed an offline resume builder with live preview,
+                    portfolio generation, and printable resume support using HTML, CSS,
+                    and JavaScript.
+                </p>
+            </div>
+        </aside>
+        <div class="button-group">
+            <button id="printBtn" onclick="printCV()" style="display:none;">
+                Print Resume
+            </button>
+        </div>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>
